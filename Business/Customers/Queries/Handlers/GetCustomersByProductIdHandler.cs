@@ -24,7 +24,8 @@ namespace Business.Customers.Queries.Handlers
             {
                 var customerDto = new CustomerReadDto
                 {
-                    Id = customer.Id,
+                    CustomerId = customer.Id,
+                    PersonId = customer.PersonId,
                     Name = customer.Person.Name,
                     Surname = customer.Person.Surname,
                     BirthDate = customer.Person.BirthDate,

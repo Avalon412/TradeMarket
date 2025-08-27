@@ -1,13 +1,9 @@
 ﻿using Business.Customers.DTOs;
+using Business.Shared;
 
 namespace Business.Customers
 {
-    public interface ICustomerService
+    public interface ICustomerService : ICrud<CustomerReadDto, CustomerWriteDto>
     {
-        Task<IEnumerable<CustomerReadDto>> GetAllAsync();
-        Task<CustomerReadDto> GetAsync(int id);
-        Task AddAsync(CustomerWriteDto customer);
-        Task UpdateAsync(CustomerWriteDto customer);
-        Task DeleteAsync(int customerId);
     }
 }

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Products\Commands\" />
-    <Folder Include="Products\DTOs\" />
     <Folder Include="Products\Queries\" />
     <Folder Include="Receipts\Commands\" />
     <Folder Include="Receipts\DTOS\" />

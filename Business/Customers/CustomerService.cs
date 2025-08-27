@@ -12,6 +12,7 @@ namespace Business.Customers
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<IEnumerable<CustomerReadDto>> GetAllAsync()
         {
             var customers = await _unitOfWork.CustomerRepository.GetAllWithDetailsAsync();
@@ -22,7 +23,8 @@ namespace Business.Customers
             {
                 var customerDto = new CustomerReadDto
                 {
-                    Id = customer.Id,
+                    CustomerId = customer.Id,
+                    PersonId = customer.PersonId,
                     Name = customer.Person.Name,
                     Surname = customer.Person.Surname,
                     BirthDate = customer.Person.BirthDate,
@@ -36,7 +38,7 @@ namespace Business.Customers
             return customersDtos;
         }
 
-        public async Task<CustomerReadDto> GetAsync(int id)
+        public async Task<CustomerReadDto?> GetAsync(int id)
         {
             var customer = await _unitOfWork.CustomerRepository.GetByIdWithDetailsAsync(id);
 
@@ -44,7 +46,8 @@ namespace Business.Customers
             {
                 return new CustomerReadDto
                 {
-                    Id = customer.Id,
+                    CustomerId = customer.Id,
+                    PersonId = customer.PersonId,
                     Name = customer.Person.Name,
                     Surname = customer.Person.Surname,
                     BirthDate = customer.Person.BirthDate,
@@ -58,7 +61,11 @@ namespace Business.Customers
 
         public async Task AddAsync(CustomerWriteDto customer)
         {
-            var entity = MapToEntity(customer);
+            var entity = new Customer
+            {
+                Person = new Person { Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate },
+                DiscountValue = customer.DiscountValue
+            };
 
             _unitOfWork.CustomerRepository.Add(entity);
             await _unitOfWork.SaveAsync();
@@ -66,22 +73,24 @@ namespace Business.Customers
 
         public async Task UpdateAsync(CustomerWriteDto customer)
         {
-            var entity = MapToEntity(customer);
+            var entity = new Customer
+            {
+                Id = customer.CustomerId,
+                Person = new Person { Id = customer.PersonId, Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate },
+                DiscountValue = customer.DiscountValue
+            };
 
             _unitOfWork.CustomerRepository.Update(entity);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task DeleteAsync(int customerId)
+        public async Task DeleteAsync(int id)
         {
-            await _unitOfWork.CustomerRepository.DeleteByIdAsync(customerId);
+            var customer = await _unitOfWork.CustomerRepository.GetByIdWithDetailsAsync(id);
+
+            await _unitOfWork.CustomerRepository.DeleteByIdAsync(customer!.Id);
+            await _unitOfWork.PersonRepository.DeleteByIdAsync(customer!.PersonId);
             await _unitOfWork.SaveAsync();
         }
-
-        private Customer MapToEntity(CustomerWriteDto customer) => new Customer
-        {
-            Person = new Person { Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate },
-            DiscountValue = customer.DiscountValue
-        };
     }
 }

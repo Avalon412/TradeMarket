@@ -4,7 +4,8 @@ namespace Business.Customers.DTOs
 {
     public record CustomerReadDto
     {
-        public int Id { get; init; }
+        public int CustomerId { get; init; }
+        public int PersonId { get; init; }
         public string? Name { get; init; }
         public string? Surname { get; init; }
         public DateTime BirthDate { get; init; }
