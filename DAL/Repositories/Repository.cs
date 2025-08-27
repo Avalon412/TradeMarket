@@ -42,7 +42,7 @@ namespace DAL.Repositories
                 _dbSet.Remove(entity);
         }
 
-        public async Task DeleteById(int id)
+        public async Task DeleteByIdAsync(int id)
         {
             if (id > 0)
             {

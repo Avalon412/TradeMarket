@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Products\Commands\" />
+    <Folder Include="Products\DTOs\" />
+    <Folder Include="Products\Queries\" />
+    <Folder Include="Receipts\Commands\" />
+    <Folder Include="Receipts\DTOS\" />
+    <Folder Include="Receipts\Queries\" />
+    <Folder Include="Statistics\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+  </ItemGroup>
+
+</Project>
