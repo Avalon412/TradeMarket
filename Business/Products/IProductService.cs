@@ -3,7 +3,7 @@ using Business.Shared;
 
 namespace Business.Products
 {
-    public interface IProductInterface : ICrud<ProductReadDto, ProductWriteDto>
+    public interface IProductService : ICrud<ProductReadDto, ProductWriteDto>
     {
     }
 }

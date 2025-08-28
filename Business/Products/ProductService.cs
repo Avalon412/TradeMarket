@@ -5,7 +5,7 @@ using DAL.Interfaces;
 
 namespace Business.Products
 {
-    public class ProductService : IProductInterface
+    public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
 

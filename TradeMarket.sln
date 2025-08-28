@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugProject", "DebugProject\DebugProject.csproj", "{F9671989-B3C8-4C97-9769-5E70E22EB105}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeMarketApi", "TradeMarketApi\TradeMarketApi.csproj", "{9CA398B1-41F2-4778-9C6A-A35BAF6232A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F9671989-B3C8-4C97-9769-5E70E22EB105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9671989-B3C8-4C97-9769-5E70E22EB105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9671989-B3C8-4C97-9769-5E70E22EB105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CA398B1-41F2-4778-9C6A-A35BAF6232A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CA398B1-41F2-4778-9C6A-A35BAF6232A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CA398B1-41F2-4778-9C6A-A35BAF6232A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CA398B1-41F2-4778-9C6A-A35BAF6232A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

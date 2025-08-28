@@ -99,7 +99,7 @@ namespace Business.Receipts
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<decimal> ToPay(int receiptId)
+        public async Task<decimal> ToPayAsync(int receiptId)
         {
             var receipt = await _unitOfWork.ReceiptRepository.GetByIdWithDetailsAsync(receiptId);
 
