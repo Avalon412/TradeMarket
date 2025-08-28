@@ -52,7 +52,7 @@ namespace TradeMarketApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddProduct([FromBody] ProductWriteDto value)
+        public async Task<ActionResult> AddProduct([FromForm] ProductWriteDto value)
         {
             await _productService.AddAsync(value);
             var product = await _productService.GetAsync(value.ProductId);

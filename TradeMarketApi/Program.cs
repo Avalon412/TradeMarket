@@ -2,6 +2,7 @@ using Business.Customers;
 using Business.Products;
 using Business.Receipts;
 using Business.Shared;
+using Business.Shared.CloudServices;
 using Business.Statistics;
 using DAL.Data;
 using DAL.Interfaces;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
+builder.Services.AddScoped<IFileStorageService, AzureStorageService>();
 
 builder.Services.AddControllers();
 

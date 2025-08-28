@@ -1,5 +1,6 @@
 ﻿using Business.Customers.DTOs;
 using Business.Products.DTOs;
+using Business.Shared;
 using DAL.Entities;
 using DAL.Interfaces;
 
@@ -8,10 +9,13 @@ namespace Business.Products
     public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileStorageService _fileStorageService;
+        private const string CONTAINER_NAME = "products";
 
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork, IFileStorageService fileStorageService)
         {
             _unitOfWork = unitOfWork;
+            _fileStorageService = fileStorageService;
         }
 
         public async Task<IEnumerable<ProductReadDto>> GetAllAsync()
@@ -29,6 +33,7 @@ namespace Business.Products
                     ProductName = product.ProductName,
                     CategoryName = product.Category.CategoryName,
                     Price = product.Price,
+                    ImageUrl = product.ImageUrl,
                     ReceiptDetailIds = product.ReceiptDetails.Select(x => x.Id).ToList()
                 };
 
@@ -51,6 +56,7 @@ namespace Business.Products
                     ProductName = product.ProductName,
                     CategoryName = product.Category.CategoryName,
                     Price = product.Price,
+                    ImageUrl = product.ImageUrl,
                     ReceiptDetailIds = product.ReceiptDetails.Select(x => x.Id).ToList()
                 };
             }
@@ -66,6 +72,11 @@ namespace Business.Products
                 ProductCategoryId = product.ProductCategoryId,
                 Price = product.Price,
             };
+
+            if (product.Picture is not null)
+            {
+                entity.ImageUrl = await _fileStorageService.SaveFile(CONTAINER_NAME, product.Picture);
+            }
 
             _unitOfWork.ProductRepository.Add(entity);
             await _unitOfWork.SaveAsync();

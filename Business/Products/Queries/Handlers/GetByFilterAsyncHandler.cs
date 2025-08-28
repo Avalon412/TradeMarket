@@ -33,6 +33,7 @@ namespace Business.Products.Queries.Handlers
                     ProductName = product.ProductName,
                     CategoryName = product.Category.CategoryName,
                     Price = product.Price,
+                    ImageUrl = product.ImageUrl,
                     ReceiptDetailIds = product.ReceiptDetails.Select(x => x.Id).ToList()
                 };
 
