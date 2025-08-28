@@ -7,6 +7,6 @@
         public string? CategoryName { get; init; }
         public string? ProductName { get; init; }
         public decimal Price { get; init; }
-        public ICollection<int>? ReceiptDetailIds { get; init; }
+        public required ICollection<int> ReceiptDetailIds { get; init; }
     }
 }

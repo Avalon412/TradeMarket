@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Products\Commands\" />
-    <Folder Include="Products\Queries\" />
-    <Folder Include="Receipts\Commands\" />
-    <Folder Include="Receipts\DTOS\" />
-    <Folder Include="Receipts\Queries\" />
     <Folder Include="Statistics\" />
   </ItemGroup>
 

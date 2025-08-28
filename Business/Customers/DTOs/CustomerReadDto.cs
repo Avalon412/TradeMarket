@@ -10,6 +10,6 @@ namespace Business.Customers.DTOs
         public string? Surname { get; init; }
         public DateTime BirthDate { get; init; }
         public int DiscountValue { get; init; }
-        public ICollection<int>? ReceiptIds { get; init; }
+        public required ICollection<int> ReceiptIds { get; init; }
     }   
 }

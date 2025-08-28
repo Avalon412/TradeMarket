@@ -55,7 +55,7 @@ namespace Business.Products
                 };
             }
 
-            return new ProductReadDto();
+            return new ProductReadDto() { ReceiptDetailIds = new List<int>() };
         }
 
         public async Task AddAsync(ProductWriteDto product)

@@ -56,7 +56,7 @@ namespace Business.Customers
                 };
             }
 
-            return new CustomerReadDto();
+            return new CustomerReadDto { ReceiptIds = new List<int>() };
         }
 
         public async Task AddAsync(CustomerWriteDto customer)
