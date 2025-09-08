@@ -81,19 +81,17 @@ namespace TradeMarketApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddReceipt([FromBody] ReceiptWriteDto value)
+        public async Task<ActionResult<ReceiptReadDto>> AddReceipt([FromBody] ReceiptWriteDto value)
         {
-            await _receiptService.AddAsync(value);
-            var receipt = await _receiptService.GetAsync(value.Id);
+            var receipt = await _receiptService.AddAsync(value);
 
             return Ok(receipt);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateReceipt(int id, [FromBody] ReceiptWriteDto value)
+        public async Task<ActionResult<ReceiptReadDto>> UpdateReceipt(int id, [FromBody] ReceiptWriteDto value)
         {
-            await _receiptService.UpdateAsync(value);
-            var updatedReceipt = await _receiptService.GetAsync(id);
+            var updatedReceipt = await _receiptService.UpdateAsync(value);
 
             return Ok(updatedReceipt);
         }

@@ -8,6 +8,6 @@ namespace Business.Products.DTOs
         public int ProductCategoryId { get; init; }
         public string? ProductName { get; init; }
         public decimal Price { get; init; }
-        public IFormFile? Picture { get; set; }
+        public IFormFile? Picture { get; init; }
     }
 }

@@ -55,7 +55,7 @@ namespace Business.Receipts
             return new ReceiptReadDto { ReceiptDetailsIds = new List<int>() };
         }
 
-        public async Task AddAsync(ReceiptWriteDto model)
+        public async Task<ReceiptReadDto> AddAsync(ReceiptWriteDto model)
         {
             var entity = new Receipt
             {
@@ -66,9 +66,18 @@ namespace Business.Receipts
 
             _unitOfWork.ReceiptRepository.Add(entity);
             await _unitOfWork.SaveAsync();
+
+            return new ReceiptReadDto
+            {
+                Id = entity.Id,
+                CustomerId = entity.CustomerId,
+                IsCheckedOut = entity.IsCheckedOut,
+                OperationDate = entity.OperationDate,
+                ReceiptDetailsIds = new List<int>()
+            };
         }
 
-        public async Task UpdateAsync(ReceiptWriteDto model)
+        public async Task<ReceiptReadDto> UpdateAsync(ReceiptWriteDto model)
         {
             var entity = new Receipt
             {
@@ -80,6 +89,15 @@ namespace Business.Receipts
 
             _unitOfWork.ReceiptRepository.Update(entity);
             await _unitOfWork.SaveAsync();
+
+            return new ReceiptReadDto
+            {
+                Id = entity.Id,
+                CustomerId = entity.CustomerId,
+                IsCheckedOut = entity.IsCheckedOut,
+                OperationDate = entity.OperationDate,
+                ReceiptDetailsIds = new List<int>()
+            };
         }
 
         public async Task DeleteAsync(int id)

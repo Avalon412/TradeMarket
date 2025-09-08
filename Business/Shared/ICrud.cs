@@ -4,8 +4,8 @@
     {
         Task<IEnumerable<TDtoRead>> GetAllAsync();
         Task<TDtoRead?> GetAsync(int id);
-        Task AddAsync(TDtoWrite model);
-        Task UpdateAsync(TDtoWrite model);
+        Task<TDtoRead>AddAsync(TDtoWrite model);
+        Task<TDtoRead> UpdateAsync(TDtoWrite model);
         Task DeleteAsync(int id);
     }
 }

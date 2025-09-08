@@ -1,4 +1,5 @@
 ﻿using Business.Customers.DTOs;
+using Business.Receipts.DTOS;
 using DAL.Entities;
 using DAL.Interfaces;
 
@@ -59,7 +60,7 @@ namespace Business.Customers
             return new CustomerReadDto { ReceiptIds = new List<int>() };
         }
 
-        public async Task AddAsync(CustomerWriteDto customer)
+        public async Task<CustomerReadDto> AddAsync(CustomerWriteDto customer)
         {
             var entity = new Customer
             {
@@ -69,9 +70,20 @@ namespace Business.Customers
 
             _unitOfWork.CustomerRepository.Add(entity);
             await _unitOfWork.SaveAsync();
+
+            return new CustomerReadDto
+            {
+                Name = entity.Person.Name,
+                Surname = entity.Person.Surname,
+                BirthDate = entity.Person.BirthDate,
+                DiscountValue = entity.DiscountValue,
+                CustomerId = entity.Id,
+                PersonId = entity.PersonId,
+                ReceiptIds = new List<int>()
+            };
         }
 
-        public async Task UpdateAsync(CustomerWriteDto customer)
+        public async Task<CustomerReadDto> UpdateAsync(CustomerWriteDto customer)
         {
             var entity = new Customer
             {
@@ -82,6 +94,17 @@ namespace Business.Customers
 
             _unitOfWork.CustomerRepository.Update(entity);
             await _unitOfWork.SaveAsync();
+
+            return new CustomerReadDto
+            {
+                Name = entity.Person.Name,
+                Surname = entity.Person.Surname,
+                BirthDate = entity.Person.BirthDate,
+                DiscountValue = entity.DiscountValue,
+                CustomerId = entity.Id,
+                PersonId = entity.PersonId,
+                ReceiptIds = new List<int>()
+            };
         }
 
         public async Task DeleteAsync(int id)

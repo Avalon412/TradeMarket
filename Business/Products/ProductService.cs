@@ -64,7 +64,7 @@ namespace Business.Products
             return new ProductReadDto() { ReceiptDetailIds = new List<int>() };
         }
 
-        public async Task AddAsync(ProductWriteDto product)
+        public async Task<ProductReadDto> AddAsync(ProductWriteDto product)
         {
             var entity = new Product
             {
@@ -80,9 +80,19 @@ namespace Business.Products
 
             _unitOfWork.ProductRepository.Add(entity);
             await _unitOfWork.SaveAsync();
+
+            return new ProductReadDto
+            {
+                Id = entity.Id,
+                ProductName = entity.ProductName,
+                ImageUrl = entity.ImageUrl,
+                Price = entity.Price,
+                ProductCategoryId = product.ProductCategoryId,
+                ReceiptDetailIds = new List<int>()
+            };
         }
 
-        public async Task UpdateAsync(ProductWriteDto product)
+        public async Task<ProductReadDto> UpdateAsync(ProductWriteDto product)
         {
             var entity = new Product
             {
@@ -94,6 +104,16 @@ namespace Business.Products
 
             _unitOfWork.ProductRepository.Update(entity);
             await _unitOfWork.SaveAsync();
+
+            return new ProductReadDto
+            {
+                Id = entity.Id,
+                ProductName = entity.ProductName,
+                ImageUrl = entity.ImageUrl,
+                Price = entity.Price,
+                ProductCategoryId = product.ProductCategoryId,
+                ReceiptDetailIds = new List<int>()
+            };
         }
 
         public async Task DeleteAsync(int id)
