@@ -2,6 +2,7 @@
 using Business.Receipts.Commands;
 using Business.Receipts.DTOS;
 using Business.Receipts.Queries;
+using Business.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,13 @@ namespace TradeMarketApi.Controllers
     public class ReceiptsController : ControllerBase
     {
         private readonly IReceiptService _receiptService;
+        private readonly IMessageQueueService _messageQueueService;
         private readonly IMediator _mediator;
 
-        public ReceiptsController(IReceiptService receiptService, IMediator mediator)
+        public ReceiptsController(IReceiptService receiptService, IMessageQueueService messageQueueService, IMediator mediator)
         {
             _receiptService = receiptService;
+            _messageQueueService = messageQueueService;
             _mediator = mediator;
         }
 
@@ -118,6 +121,8 @@ namespace TradeMarketApi.Controllers
         public async Task<ActionResult> Checkout(int id)
         {
             await _receiptService.CheckOutAsync(id);
+
+            await _messageQueueService.SendMessageAsync("checkout-emails", new { ReceiptId = id });
 
             return Ok();
         }

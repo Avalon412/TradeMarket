@@ -1,30 +1,33 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
+﻿using System.Text.Json;
 using Azure.Communication.Email;
-using System.Net;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Logging;
 
 namespace TradeMarket.Api.Emailing
 {
     public class SendEmailFunction
     {
         private readonly EmailClient _emailClient;
+        private readonly ILogger _logger;
 
-        public SendEmailFunction()
+        public SendEmailFunction(ILogger<SendEmailFunction> logger)
         {
             string connectionString = Environment.GetEnvironmentVariable("ACS_CONNECTION_STRING") ?? "";
             _emailClient = new EmailClient(connectionString);
+            _logger = logger;
         }
 
         [Function("SendEmail")]
-        public async Task<HttpResponseData> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "send-email")] HttpRequestData requestData)
+        public async Task Run(
+            [QueueTrigger("checkout-emails", Connection = "AzureWebJobsStorage")] string queueMessage)
         {
+            var message = JsonSerializer.Deserialize<CheckOutMessage>(queueMessage);
+
             var emailMessage = new EmailMessage(
                 senderAddress: "DoNotReply@b5c48146-ae7a-4a00-9500-7f02d61b156d.azurecomm.net",
                 content: new EmailContent("Receipt Checkout")
                 {
-                    PlainText = "Check is processd successfully"
+                    PlainText = $"Check is processd successfully. Check id - {message?.ReceiptId}"
                 },
                 recipients: new EmailRecipients(new[]
                 {
@@ -35,9 +38,12 @@ namespace TradeMarket.Api.Emailing
 
             var op = await _emailClient.SendAsync(Azure.WaitUntil.Completed, emailMessage);
 
-            var response = requestData.CreateResponse(HttpStatusCode.OK);
-            await response.WriteStringAsync($"Email status: {op.Value.Status}");
-            return response;
+            _logger.LogInformation($"Email sent. Status: {op.Value.Status}");
+        }
+
+        private class CheckOutMessage
+        {
+            public int ReceiptId { get; set; }
         }
     }
 }

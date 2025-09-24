@@ -36,6 +36,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IReceiptService, ReceiptService>();
 builder.Services.AddScoped<IStatisticService, StatisticService>();
 builder.Services.AddScoped<IFileStorageService, AzureStorageService>();
+builder.Services.AddScoped<IMessageQueueService, AzureMessageQueueService>();
 
 builder.Services.AddControllers();
 
