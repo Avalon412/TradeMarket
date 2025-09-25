@@ -31,19 +31,19 @@ namespace TradeMarket.Api.Emailing
                 },
                 recipients: new EmailRecipients(new[]
                 {
-                    //new EmailAddress("test@example.com")
-                    new EmailAddress("marakasi887@gmail.com")
+                    new EmailAddress(message?.Email)
                 })
             );
 
             var op = await _emailClient.SendAsync(Azure.WaitUntil.Completed, emailMessage);
 
-            _logger.LogInformation($"Email sent. Status: {op.Value.Status}");
+            _logger.LogInformation($"Email sent to recepuient {message?.Email}. Status: {op.Value.Status}");
         }
 
         private class CheckOutMessage
         {
             public int ReceiptId { get; set; }
+            public string Email { get; set; } = string.Empty;
         }
     }
 }

@@ -9,5 +9,7 @@ namespace DAL.Entities
         [StringLength(50)]
         public string? Surname { get; set; }
         public DateTime BirthDate { get; set; }
+        [StringLength(30)]
+        public string? Email { get; set; }
     }
 }

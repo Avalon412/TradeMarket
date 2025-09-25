@@ -1,4 +1,5 @@
-﻿using Business.Receipts;
+﻿using Business.Customers.Queries;
+using Business.Receipts;
 using Business.Receipts.Commands;
 using Business.Receipts.DTOS;
 using Business.Receipts.Queries;
@@ -122,7 +123,9 @@ namespace TradeMarketApi.Controllers
         {
             await _receiptService.CheckOutAsync(id);
 
-            await _messageQueueService.SendMessageAsync("checkout-emails", new { ReceiptId = id });
+            var customer = await _mediator.Send(new GetCustomerByReceiptIdQuerie() { ReceiptId = id });
+
+            await _messageQueueService.SendMessageAsync("checkout-emails", new { ReceiptId = id, customer.Email });
 
             return Ok();
         }

@@ -29,6 +29,7 @@ namespace Business.Customers
                     Name = customer.Person.Name,
                     Surname = customer.Person.Surname,
                     BirthDate = customer.Person.BirthDate,
+                    Email = customer.Person.Email,
                     DiscountValue = customer.DiscountValue,
                     ReceiptIds = customer.Receipts.Select(x => x.Id).ToList()
                 };
@@ -52,6 +53,7 @@ namespace Business.Customers
                     Name = customer.Person.Name,
                     Surname = customer.Person.Surname,
                     BirthDate = customer.Person.BirthDate,
+                    Email = customer.Person.Email,
                     DiscountValue = customer.DiscountValue,
                     ReceiptIds = customer.Receipts.Select(x => x.Id).ToList()
                 };
@@ -64,7 +66,7 @@ namespace Business.Customers
         {
             var entity = new Customer
             {
-                Person = new Person { Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate },
+                Person = new Person { Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate, Email = customer.Email },
                 DiscountValue = customer.DiscountValue
             };
 
@@ -76,6 +78,7 @@ namespace Business.Customers
                 Name = entity.Person.Name,
                 Surname = entity.Person.Surname,
                 BirthDate = entity.Person.BirthDate,
+                Email = entity.Person.Email,
                 DiscountValue = entity.DiscountValue,
                 CustomerId = entity.Id,
                 PersonId = entity.PersonId,
@@ -88,7 +91,7 @@ namespace Business.Customers
             var entity = new Customer
             {
                 Id = customer.CustomerId,
-                Person = new Person { Id = customer.PersonId, Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate },
+                Person = new Person { Id = customer.PersonId, Name = customer.Name, Surname = customer.Surname, BirthDate = customer.BirthDate, Email = customer.Email },
                 DiscountValue = customer.DiscountValue
             };
 
@@ -100,6 +103,7 @@ namespace Business.Customers
                 Name = entity.Person.Name,
                 Surname = entity.Person.Surname,
                 BirthDate = entity.Person.BirthDate,
+                Email = entity.Person.Email,
                 DiscountValue = entity.DiscountValue,
                 CustomerId = entity.Id,
                 PersonId = entity.PersonId,

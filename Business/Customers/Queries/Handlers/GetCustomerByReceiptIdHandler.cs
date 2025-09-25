@@ -1,28 +1,27 @@
 ﻿using Business.Customers.DTOs;
 using DAL.Interfaces;
 using MediatR;
+using System.Linq;
 
 namespace Business.Customers.Queries.Handlers
 {
-    public class GetCustomersByProductIdHandler : IRequestHandler<GetCustomersByProductIdQuerie, IEnumerable<CustomerReadDto>>
+    public class GetCustomerByReceiptIdHandler : IRequestHandler<GetCustomerByReceiptIdQuerie, CustomerReadDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetCustomersByProductIdHandler(IUnitOfWork unitOfWork)
+        public GetCustomerByReceiptIdHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CustomerReadDto>> Handle(GetCustomersByProductIdQuerie request, CancellationToken cancellationToken)
+        public async Task<CustomerReadDto> Handle(GetCustomerByReceiptIdQuerie request, CancellationToken cancellationToken)
         {
             var customers = await _unitOfWork.CustomerRepository.GetAllWithDetailsAsync();
-            var filteredCustomers = customers.Where(c => c.Receipts.Any(r => r.ReceiptDetails.Any(rd => rd.ProductId == request.ProductId)));
+            var customer = customers.FirstOrDefault(x => x.Receipts.Select(x => x.Id).Contains(request.ReceiptId));
 
-            var customersDtos = new List<CustomerReadDto>();
-
-            foreach (var customer in filteredCustomers)
+            if (customer is not null)
             {
-                var customerDto = new CustomerReadDto
+                return new CustomerReadDto
                 {
                     CustomerId = customer.Id,
                     PersonId = customer.PersonId,
@@ -33,11 +32,9 @@ namespace Business.Customers.Queries.Handlers
                     DiscountValue = customer.DiscountValue,
                     ReceiptIds = customer.Receipts.Select(x => x.Id).ToList()
                 };
-
-                customersDtos.Add(customerDto);
             }
 
-            return customersDtos;
+            return new CustomerReadDto { ReceiptIds = new List<int>()};
         }
     }
 }

@@ -27,10 +27,10 @@ namespace DAL.Data
 
             // ==== Persons ====
             modelBuilder.Entity<Person>().HasData(
-                new Person { Id = 1, Name = "John", Surname = "Doe", BirthDate = new DateTime(1990, 5, 20) },
-                new Person { Id = 2, Name = "Anna", Surname = "Smith", BirthDate = new DateTime(1985, 10, 10) },
-                new Person { Id = 3, Name = "Mark", Surname = "Johnson", BirthDate = new DateTime(2000, 3, 15) },
-                new Person { Id = 4, Name = "Sophia", Surname = "Williams", BirthDate = new DateTime(1995, 8, 25) }
+                new Person { Id = 1, Name = "John", Surname = "Doe", BirthDate = new DateTime(1990, 5, 20), Email = "test@mail.com" },
+                new Person { Id = 2, Name = "Anna", Surname = "Smith", BirthDate = new DateTime(1985, 10, 10), Email = "test@mail.com" },
+                new Person { Id = 3, Name = "Mark", Surname = "Johnson", BirthDate = new DateTime(2000, 3, 15), Email = "test@mail.com" },
+                new Person { Id = 4, Name = "Sophia", Surname = "Williams", BirthDate = new DateTime(1995, 8, 25), Email = "test@mail.com" }
             );
 
             // ==== Customers ====

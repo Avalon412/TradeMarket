@@ -63,7 +63,7 @@ namespace TradeMarketApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CustomerReadDto>> Update(int Id, [FromBody] CustomerWriteDto value)
+        public async Task<ActionResult<CustomerReadDto>> Update(int id, [FromBody] CustomerWriteDto value)
         {
             var updatedCustomer = await _customerService.UpdateAsync(value);
 
